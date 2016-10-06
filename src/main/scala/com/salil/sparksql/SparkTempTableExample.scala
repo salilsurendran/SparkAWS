@@ -12,7 +12,7 @@ object SparkTempTableExample {
     val sc = new SparkContext()
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
     import sqlContext.implicits._
-    case class Person(name: String, age: Long)
+
     val peopleDF = sc.textFile("/user/root/people.txt")
       .map(_.split(","))
       .map(attributes => Person(attributes(0), attributes(1).trim.toInt))
@@ -27,4 +27,6 @@ object SparkTempTableExample {
     println("explain Spark SQL: " )
     df.explain(true)
   }
+
+  case class Person(name: String, age: Long)
 }

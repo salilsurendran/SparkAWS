@@ -1,6 +1,7 @@
 package com.salil.sparksql
 
 import org.apache.spark.SparkContext
+import org.apache.spark.sql.hive.HiveContext
 
 /**
   * Created by salilsurendran on 8/16/16.
@@ -8,7 +9,7 @@ import org.apache.spark.SparkContext
 
 object SparkSQLOnHive {
   def main(args: Array[String]) {
-    val sqlContext = new org.apache.spark.sql.SQLContext(new SparkContext())
+    val sqlContext = new HiveContext(new SparkContext())
     if (sqlContext.sql("SHOW TABLES").collect().length == 0) {
       sqlContext.sql("CREATE TABLE sample_07 (code string,description string,total_emp int,salary int)")
       sqlContext.sql("LOAD DATA INPATH '/user/root/sample_07.csv' OVERWRITE INTO TABLE sample_07")

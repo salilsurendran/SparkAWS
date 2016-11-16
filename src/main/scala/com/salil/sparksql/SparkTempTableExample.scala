@@ -1,6 +1,7 @@
 package com.salil.sparksql
 
 import org.apache.spark.SparkContext
+import org.apache.spark.sql.SparkSession
 
 
 /**
@@ -29,4 +30,23 @@ object SparkTempTableExample {
   }
 
   case class Person(name: String, age: Long)
+}
+
+
+object TestConf {
+  def main(args: Array[String]) {
+    val sc = new SparkContext()
+    val conf = sc.getConf
+    println("conf.getAll")
+    conf.getAll.foreach(x => println(x._1 +":"+ x._2))
+    println("sysEnv foreach")
+    sys.env.foreach(println)
+    println("executor env getAll")
+    conf.getExecutorEnv.foreach(x => println(x._1 +":"+ x._2))
+    println("TEst")
+    /*val df = spark.read.json("/home/salilsurendran/WORK/lineage/datafiles/root/people.json")
+            .select("name","age")
+    df.write.json("/home/salilsurendran/WORK/lineage/datafiles/root/people"+ System
+            .currentTimeMillis() + ".json")*/
+  }
 }

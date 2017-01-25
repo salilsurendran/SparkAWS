@@ -12,7 +12,8 @@ object MassiveSQL {
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
     val rdd = sc.textFile("/user/root/people.csv")
     val schemaString = "first_name last_name code"
-    val schema = StructType(schemaString.split(" ").map(fieldName => StructField(fieldName, StringType, true)))
+    val schema = StructType(
+      schemaString.split(" ").map(fieldName => StructField(fieldName, StringType, true)))
 
     import org.apache.spark.sql.Row
     // Import Spark SQL data types
@@ -21,9 +22,9 @@ object MassiveSQL {
     val peopleDataFrame = sqlContext.createDataFrame(rowRDD, schema)
     val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
     val df = hiveContext.sql("select code,description,salary as sal from sample_07")
-    val df2 = df.join(peopleDataFrame,df.col("code").equalTo(peopleDataFrame("code")))
+    val df2 = df.join(peopleDataFrame, df.col("code").equalTo(peopleDataFrame("code")))
     println("toString : " + df2.toString())
-    println("explain Spark SQL: " )
+    println("explain Spark SQL: ")
     df2.explain(true)
   }
 }

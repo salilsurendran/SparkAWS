@@ -17,7 +17,7 @@ object SparkNavigatorLineage {
     /*val dfFromHive = hiveContext.sql("from sample_07 select code,description,salary")
     dfFromHive.select("code", "description").write.saveAsTable("new_sample_07_" + System.currentTimeMillis())*/
 
-    val dfCustomers = sqlContext.read.load("/user/root/customers.parquet").select("id","name")
+    val dfCustomers = sqlContext.read.load("/user/root/customers.parquet").select("id", "name")
     dfCustomers.write.save("/user/root/abc_" + System.currentTimeMillis() + ".parquet")
 
     val rdd = sc.textFile("/user/root/people.csv")

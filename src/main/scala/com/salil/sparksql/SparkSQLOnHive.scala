@@ -14,17 +14,17 @@ object SparkSQLOnHive {
       sqlContext.sql("CREATE TABLE sample_07 (code string,description string,total_emp int,salary int)")
       sqlContext.sql("LOAD DATA INPATH '/user/root/sample_07.csv' OVERWRITE INTO TABLE sample_07")
     }
-    var df = sqlContext.sql(args(0))
-    df = df.filter(df("sal") > 180000)
-    df.write.saveAsTable("sample_07_150k_" + System.currentTimeMillis())
-    df.write.parquet("/user/root/sample_07_150k_pq_" + System.currentTimeMillis())
-    df.write.json("/user/root/sample_07_150k_json_" + System.currentTimeMillis())
+    var df2 = sqlContext.sql(args(0))
+    df2 = df2.filter(df2("sal") > 180000)
+    df2.write.saveAsTable("sample_07_150k_" + System.currentTimeMillis())
+    df2.write.parquet("/user/root/sample_07_150k_pq_" + System.currentTimeMillis())
+    df2.write.json("/user/root/sample_07_150k_json_" + System.currentTimeMillis())
     //df.write.text("/user/root/sample_07_150k_text_" + System.currentTimeMillis())
-    println("toString : " + df.toString())
+    println("toString : " + df2.toString())
     println("explain Spark SQL: " )
-    df.explain(true)
-    for(i <- 0 until df.inputFiles.length){
-      println("i'th element is: " + df.inputFiles(i));
+    df2.explain(true)
+    for(i <- 0 until df2.inputFiles.length){
+      println("i'th element is: " + df2.inputFiles(i));
     }
   }
 }
